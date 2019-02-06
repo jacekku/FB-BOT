@@ -4,11 +4,19 @@ import requests
 import re
 from bs4 import BeautifulSoup
 import random as r
-import os
-LOGIN=os.environ['LOGIN']
-PASSWORD=os.environ['PASSWORD']
-THREAD=os.environ['THREAD']
-OWNER=os.environ['OWNER']
+
+from os import environ
+from flask import Flask
+
+app = Flask(__name__)
+app.run(environ.get('PORT'))
+
+
+
+LOGIN=environ.get('LOGIN')
+PASSWORD=environ.get('PASSWORD')
+THREAD=environ.get('THREAD')
+OWNER=environ.get('OWNER')
 class CustomClient(Client):
     
     def q_send(self,text):

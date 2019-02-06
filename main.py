@@ -8,8 +8,8 @@ import random as r
 from os import environ
 from flask import Flask
 
-app = Flask(__name__)
-app.run(environ.get('PORT'))
+#app = Flask(__name__)
+#app.run(environ.get('PORT'))
 
 
 

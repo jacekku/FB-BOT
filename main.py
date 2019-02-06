@@ -136,8 +136,15 @@ class CustomClient(Client):
                     IQ=int(IQ[:-2])
                     new_nickname=nickname.replace(str(IQ),str(int(points)+IQ))
                     self.changeNickname(new_nickname, user_id, thread_id='', thread_type=ThreadType.GROUP)
-            
         pass
+        def onMessageDelivered(msg_ids=None, delivered_for=None, thread_id=None, thread_type=ThreadType.USER, ts=None, metadata=None, msg=None):
+            pass
+        def onMessageError(exception=None, msg=None):
+            pass 
+        def onMessageSeen(seen_by=None, thread_id=None, thread_type=ThreadType.USER, seen_ts=None, ts=None, metadata=None, msg=None):
+            pass
+        def onMessageUnsent(mid=None, author_id=None, thread_id=None, thread_type=None, ts=None, msg=None):
+            pass
 
 client = CustomClient(LOGIN, PASSWORD)
 client.listen()

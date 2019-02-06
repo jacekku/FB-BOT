@@ -40,10 +40,7 @@ class CustomClient(Client):
         #return(f'url{u.url}, first_name{u.first_name}, last_name{u.last_name}, is_friend{u.is_friend}, gender{u.gender}, affinity{u.affinity}, nickname{u.nickname}, own_nickname{u.own_nickname}, color{u.color}, emoji{u.emoji}')
     def get_IQ(self,id):
         prog = re.compile("\d*IQ")
-        print(self.get_nickname(id))
         result = prog.search(self.get_nickname(id))
-        print(result)
-        print(result[0])
         return result[0]
     def get_help(self):
         return '''pomoc
@@ -61,7 +58,6 @@ class CustomClient(Client):
     def onMessage(self, message_object, author_id, thread_id, thread_type, **kwargs):
         if(thread_id!=THREAD):
             return True
-        print(message_object)
         if(message_object.text.startswith("!close") and author_id==OWNER):
             self.q_send("shutting down :(")
             self.logout()
@@ -80,7 +76,6 @@ class CustomClient(Client):
         if(message_object.text.startswith("!IQ")):
             
             text=message_object.text.split(" ")
-            print(text)
             command=""
             user=""
             points=""
@@ -97,10 +92,8 @@ class CustomClient(Client):
             try:
                 prog = re.compile("\d+")
                 string=" ".join(text[1:])
-                print("string ",string)
                 result = prog.search(string)
                 points=result[0]
-                print("pts",result,result[0])
             except IndexError:
                 print("no points")
                 pass
@@ -110,7 +103,6 @@ class CustomClient(Client):
             
             if(command=="get"):
                 self.nicknames=client.fetchGroupInfo(THREAD)[THREAD].nicknames
-                print(self.nicknames)
                 if(user != "" and "@" in user):
                     user_id=self.get_id_from_mention(message_object.mentions[0])
                     self.q_send(f'{self.get_user_name(user_id)} has {self.get_IQ(user_id)}')
@@ -122,7 +114,6 @@ class CustomClient(Client):
                     nickname=self.get_nickname(user_id)
                     IQ=self.get_IQ(user_id)
                     new_nickname=nickname.replace(IQ,points+"IQ")
-                    print("new nick:",new_nickname)
                     self.changeNickname(new_nickname, user_id, thread_id=THREAD, thread_type=ThreadType.GROUP)
                 else:
                     user_id=author_id

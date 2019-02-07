@@ -17,11 +17,13 @@ LOGIN=environ.get('LOGIN')
 PASSWORD=environ.get('PASSWORD')
 THREAD=environ.get('THREAD')
 OWNER=environ.get('OWNER')
+SPIKER=environ.get('SPIKER')
 class CustomClient(Client):
     
     def q_send(self,text):
         self.send(Message(text=text), thread_id=THREAD, thread_type=ThreadType.GROUP)
-
+    def get_spiker(self):
+        return "\n".join(SPIKER.split(","))
     def get_power(self):
         r=requests.get("https://powerlisting.fandom.com/wiki/special:random")
         soup = BeautifulSoup(r.text, 'html.parser')
@@ -61,6 +63,8 @@ class CustomClient(Client):
         if(message_object.text.startswith("!close") and author_id==OWNER):
             self.q_send("shutting down :(")
             self.logout()
+        if(message_object.text.startswith("!spiker")):
+            self.q_send(self.get_spiker())
         if(message_object.text.startswith("good bot")):
             self.q_send(":) <3")
         if(message_object.text.startswith("!help")):

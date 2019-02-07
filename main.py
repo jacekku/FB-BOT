@@ -61,7 +61,7 @@ class CustomClient(Client):
     def onMessage(self, message_object, author_id, thread_id, thread_type, **kwargs):
         if(thread_id!=THREAD):
             return True
-        h=haikufy(message_object.text):
+        h=haikufy(message_object.text)
         if(h):
             self.q_send(h+"-"+self.get_user_name(author_id))
         if(message_object.text.startswith("!close") and author_id==OWNER):

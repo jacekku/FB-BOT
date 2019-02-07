@@ -23,7 +23,7 @@ class CustomClient(Client):
     def q_send(self,text):
         self.send(Message(text=text), thread_id=THREAD, thread_type=ThreadType.GROUP)
     def get_spiker(self):
-        return "\n".join(SPIKER.split(","))
+        return "\n\n".join(SPIKER.split(","))
     def get_power(self):
         r=requests.get("https://powerlisting.fandom.com/wiki/special:random")
         soup = BeautifulSoup(r.text, 'html.parser')

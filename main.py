@@ -7,6 +7,7 @@ import random as r
 
 from os import environ
 from flask import Flask
+from haiku import haikufy
 
 #app = Flask(__name__)
 #app.run(environ.get('PORT'))
@@ -60,6 +61,9 @@ class CustomClient(Client):
     def onMessage(self, message_object, author_id, thread_id, thread_type, **kwargs):
         if(thread_id!=THREAD):
             return True
+        haiku=haikufy(message_object.text):
+        if(haiku):
+            self.q_send(haiku+"-"+self.get_user_name(author_id))
         if(message_object.text.startswith("!close") and author_id==OWNER):
             self.q_send("shutting down :(")
             self.logout()

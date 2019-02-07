@@ -4,10 +4,10 @@ import requests
 import re
 from bs4 import BeautifulSoup
 import random as r
-
 from os import environ
-from flask import Flask
+
 from haiku import haikufy
+import magic8ball as m8b
 
 #app = Flask(__name__)
 #app.run(environ.get('PORT'))
@@ -64,6 +64,8 @@ class CustomClient(Client):
         h=haikufy(message_object.text)
         if(h):
             self.q_send(h+"-"+self.get_user_name(author_id))
+        if(message_object.text.startswith("!8ball")):
+            self.q_send(m8b.get_answer())
         if(message_object.text.startswith("!close") and author_id==OWNER):
             self.q_send("shutting down :(")
             self.logout()

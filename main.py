@@ -64,28 +64,28 @@ class CustomClient(Client):
         h=haikufy(message_object.text)
         if(h):
             self.q_send(h+"-"+self.get_user_name(author_id))
-        if(message_object.text.startswith("!8ball")):
+        mes=message_object.text.lower()
+        if(mes.startswith("!8ball")):
             self.q_send(m8b.get_answer())
-        if(message_object.text.startswith("!close") and author_id==OWNER):
+        if(mes.startswith("!close") and author_id==OWNER):
             self.q_send("shutting down :(")
             self.logout()
-        if(message_object.text.startswith("!spiker")):
+        if(mes.startswith("!spiker")):
             self.q_send(self.get_spiker())
-        if(message_object.text.startswith("good bot")):
+        if(mes.startswith("good bot")):
             self.q_send(":) <3")
-        if(message_object.text.startswith("!help")):
+        if(mes.startswith("!help")):
             self.q_send(self.get_help())
-        if(message_object.text.startswith("!power")):
+        if(mes.startswith("!power")):
             self.q_send(self.get_power())
-        if(message_object.text.startswith("!nickname")):
+        if(mes.startswith("!nickname")):
             self.q_send(f'Your nickname:{self.get_nickname(author_id)}')
-        if(message_object.text.startswith("!id")):
+        if(mes.startswith("!id")):
             self.q_send(f'Your id:{author_id}')
-        if(message_object.text.startswith("!coinflip")):
+        if(mes.startswith("!coinflip")):
             self.q_send("heads" if r.random()<0.5 else "tails")
-        if(message_object.text.startswith("!IQ")):
-            
-            text=message_object.text.split(" ")
+        if(mes.startswith("!iq")):
+            text=mes.split(" ")
             command=""
             user=""
             points=""
